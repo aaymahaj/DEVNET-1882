@@ -1,0 +1,53 @@
+module router-model {
+  namespace "http://com/example/routermodel";
+  prefix router-model;
+  import ietf-inet-types {
+    prefix inet; 
+  }
+  import tailf-common { prefix tailf; }
+  import tailf-ncs { prefix ncs; }
+  container router {
+    leaf name {
+      type string;
+    }
+    leaf address {
+      type inet:ipv4-address;
+    }
+    leaf operational-status {
+      type enumeration {
+        enum up;
+        enum down;
+      }
+    }
+    list interface {
+      key "type";
+
+      description
+        "The list of interfaces on the device.";
+
+      leaf type {
+        type enumeration {
+          enum GigabitEthernet;
+          enum TenGigE;
+        }
+      }
+      leaf enabled {
+        type boolean;
+        default "true";
+        description "This leaf contains the configured, desired state of the interface.";
+      }
+      leaf interface-id {
+        tailf:info "X.X or X/X";
+        type union {
+          type string{
+            pattern '(\d+)(.)(\d+)';
+          }
+          type string {
+            pattern '(\d+/)+\d+';
+          }
+        }
+        mandatory true;
+      }
+    }
+  }
+}
