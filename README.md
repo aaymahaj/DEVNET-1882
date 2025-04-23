@@ -51,7 +51,7 @@ git clone https://github.com/aaymahaj/DEVNET-1882
 cd ~/nso-instance/packages
 
 # Move the directories from DEVNET-1882 to the packages directory
-mv ~/DEVNET-1882/learn-yang ~/nso-instance/packages/
+mv ~/DEVNET-1882/user-info ~/nso-instance/packages/
 mv ~/DEVNET-1882/router-model ~/nso-instance/packages/
 
 ```
@@ -59,7 +59,7 @@ mv ~/DEVNET-1882/router-model ~/nso-instance/packages/
 re-compile the packages 
 
 ```
-cd ~/nso-instance/packages/learn-yang/src
+cd ~/nso-instance/packages/user-info/src
 make clean all
 cd ~/nso-instance/packages/router-model/src
 make clean all
