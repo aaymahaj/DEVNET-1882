@@ -94,35 +94,61 @@ show running-config router | display json
 show running-config router | display xml
 ```
 
-output example
+New Configuration
 ```
-admin@ncs# conf
+admin@ncs# config
 Entering configuration mode terminal
-admin@ncs(config)# router ?
+admin@ncs(config)# router name re-demo-CLUS address 4.5.6.7 ?
 Possible completions:
-  address  name  operational-status
-admin@ncs(config)# router name ?
+  interface  operational-status  <cr>
+admin@ncs(config)# router name re-demo-CLUS address 4.5.6.7 operational-status up interface ?
 Possible completions:
-  <string>[rno-gw1]
-admin@ncs(config)# router name sjc-gw2
-admin@ncs(config)# commit
+  GigabitEthernet  TenGigE
+admin@ncs(config)# router name re-demo-CLUS address 4.5.6.7 operational-status up interface TenGigE ?
+Possible completions:
+  disabled
+  enabled
+  interface-id   X.X or X/X
+  <cr>
+admin@ncs(config)# router name re-demo-CLUS address 4.5.6.7 operational-status up interface TenGigE interface-id 1.4 ?
+Possible completions:
+  disabled  enabled  <cr>
+admin@ncs(config)# router name re-demo-CLUS address 4.5.6.7 operational-status up interface TenGigE interface-id 1.4 disabled
+admin@ncs(config-interface-TenGigE)# commit
 Commit complete.
-admin@ncs(config)# end
-admin@ncs# show running-config router
-router name        sjc-gw2
-router address     10.20.30.40
+admin@ncs(config)# show full-configuration router
+router name        re-demo-CLUS
+router address     4.5.6.7
 router operational-status up
-admin@ncs#
+router interface TenGigE
+ disabled
+ interface-id 1.4
+!
 ```
 
 changing configuration that is already existing example
 
 ```
-conf
-router ?
-router name ?
-router name sjc-gw2
-commit
-end
-show running-config router
+Entering configuration mode terminal
+admin@ncs(config)# router ?
+Possible completions:
+  address  interface  name  operational-status
+admin@ncs(config)# router name ?
+Possible completions:
+  <string>[re-demo-CLUS]
+admin@ncs(config)# router name re-123 ?
+Possible completions:
+  address  interface  operational-status  <cr>
+admin@ncs(config)# router name re-123 address 4.5.6.7
+admin@ncs(config)# commit dry-run
+cli {
+    local-node {
+        data  router {
+             -    name re-demo-CLUS;
+             +    name re-123;
+              }
+    }
+}
+admin@ncs(config)# commit
+Commit complete.
 ```

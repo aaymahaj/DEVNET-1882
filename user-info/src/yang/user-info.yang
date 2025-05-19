@@ -19,7 +19,7 @@ module user-info {
         enum vegetarian;
         enum non-vegetarian;
       }
-      mandatory true;
+      default "vegetarian";
     }
 }
 
